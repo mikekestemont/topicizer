@@ -39,7 +39,7 @@ def main():
 		shutil.rmtree(output_folder)
 	os.mkdir(output_folder)
 	# parse topics:
-	tree = etree.parse(open(path_to_dict))
+	tree = etree.parse(open(path_to_dict, encoding="utf-8"))
 	topics = {}
 	vocab_counter = Counter()
 	for node in tree.iterfind("//cnode"):
@@ -56,10 +56,10 @@ def main():
 	sorted_topics = sorted(list(topics.keys()))
 	df_topic_counts = pd.DataFrame(columns=["ID", "word_count"]+sorted_topics)
 	df_first_occurence = pd.DataFrame(columns=["ID", "word_count"]+sorted_topics)
-	words_found_file = open(os.sep.join([output_folder, "words_found.tsv"]), "w+")
-	vocab_count_file = open(os.sep.join([output_folder, "vocab_count.tsv"]), "w+")
+	words_found_file = open(os.sep.join([output_folder, "words_found.tsv"]), "w+", encoding="utf-8")
+	vocab_count_file = open(os.sep.join([output_folder, "vocab_count.tsv"]), "w+", encoding="utf-8")
 	# loop over the documents:
-	texts = open(path_to_corpus).readlines()
+	texts = open(path_to_corpus, encoding="utf-8").readlines()
 	for text in texts:
 		text = clean_text(text)
 		try:
